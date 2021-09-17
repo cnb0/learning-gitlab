@@ -14,7 +14,8 @@ Day 2 - Intro gitlab and architecture
         - Installing and Configuring Gitlab
         - Overview of Gitlab Features and Architecture
         - Understanding the anatomy of GitLab
-        - Understanding the differences between GitLab's Community Edition (CE) and Enterprise Edition (EE)
+        - Understanding the differences between GitLab's Community Edition (CE) 
+          and Enterprise Edition (EE)
         - How to fork a project and what is forking?
         - Navigating the GitLab Web IDE
         - Issue Management  
