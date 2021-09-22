@@ -61,3 +61,41 @@ Day 5 - gitlab - Production practices
         - How to format a good Git commit message
         - How to change your Git editor
         - Monitoring CI Metrics
+
+
+Course Outline
+
+            GitLab Overview and Flow
+            Performing Git commands for branching, merging, and remote work
+            GitLab components and navigation features
+            Fundamental concepts and skills using GitLab within the DevSecOps lifecycle
+            Architecture and Runners
+            Setting-up and configuring CICD and runners
+            Scope and persist variables at various levels
+            Testing, building, reviewing, and deploying Gitlab CICD pipelines
+            CICD pipelines custom workflow management
+            Multi Environment (Multiple K8s Clusters) Deployments with CICD
+            Release and deployment workflow
+            Task automations in Gitlab
+            Artifacts and dependency caching
+            Building and deploying images to GitLab registry
+            Gitlab Security Scanning and Reporting – Static Application Security Testing, License Compliance Scanning, container scanning and Dynamic Application Security Testing (DAST)
+            Scalability and High Availability with GitLab
+            Gitlab Integration with Jenkins
+
+
+Gitlab administration topics 
+
+           Install GitLab
+           Configure basic settings
+           Add and remove users and adjust settings
+           View and track user permission levels and changes made to these
+           Manage user access via integrations with external authentication and authorization providers
+           Configure and test-optional settings and integrations
+           Perform backups, restores, and upgrades
+
+Enterprise Security:
+
+                SAST Overview
+                Using built-in scanners
+                Integrating external scanner
