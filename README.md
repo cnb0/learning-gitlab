@@ -79,7 +79,8 @@ Course Outline
             Task automations in Gitlab
             Artifacts and dependency caching
             Building and deploying images to GitLab registry
-            Gitlab Security Scanning and Reporting – Static Application Security Testing, License Compliance Scanning, container scanning and Dynamic Application Security Testing (DAST)
+            Gitlab Security Scanning and Reporting – Static Application Security Testing, 
+            License Compliance Scanning, container scanning and Dynamic Application Security Testing (DAST)
             Scalability and High Availability with GitLab
             Gitlab Integration with Jenkins
 
