@@ -79,7 +79,8 @@ Course Outline
             Task automations in Gitlab
             Artifacts and dependency caching
             Building and deploying images to GitLab registry
-            Gitlab Security Scanning and Reporting – Static Application Security Testing, License Compliance Scanning, container scanning and Dynamic Application Security Testing (DAST)
+            Gitlab Security Scanning and Reporting – Static Application Security Testing, 
+            License Compliance Scanning, container scanning and DAST
             Scalability and High Availability with GitLab
             Gitlab Integration with Jenkins
 
@@ -90,7 +91,7 @@ Gitlab administration topics
            Configure basic settings
            Add and remove users and adjust settings
            View and track user permission levels and changes made to these
-           Manage user access via integrations with external authentication and authorization providers
+           Manage user access via integrations with external authentication and auth providers
            Configure and test-optional settings and integrations
            Perform backups, restores, and upgrades
 
