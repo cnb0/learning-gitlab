@@ -1,0 +1,74 @@
+#sonarqube-check:
+#  stage: build
+#  image:
+#    name: sonarsource/sonar-scanner-cli:latest
+#    entrypoint: [""]
+#  variables:
+#    SONAR_HOST_URL: "http://sonarqube.new-aks-stage.linnovate.net"
+#    SONAR_LOGIN: "b8bafe2ec8467d6d96365c41d2992b30d7dcd107"
+#    SONAR_PROJECTKEY: "${CI_PROJECT_PATH}"
+#    SONAR_TOKEN: "b8bafe2ec8467d6d96365c41d2992b30d7dcd107"
+#    SONAR_USER_HOME: "${CI_PROJECT_DIR}/.sonar"  # Defines the location of the analysis task cache
+#    GIT_DEPTH: "0"  # Tells git to fetch all the branches of the project, required by the analysis task
+#  cache:
+#    key: "${CI_JOB_NAME}"
+#    paths:
+#      - .sonar/cache
+#  script:
+#    - sonar-scanner -Dsonar.qualitygate.wait=true -Dsonar.projectKey=${CI_PROJECT_PATH}  -Dsonar.sources=. -Dsonar.host.url=http://sonarqube.new-aks-stage.linnovate.net -Dsonar.login=b8bafe2ec8467d6d96365c41d2992b30d7dcd107
+#  allow_failure: true
+#  only:
+#    - merge_requests
+#    - master
+#    - develop
+
+stages:
+  - build
+  - deploy
+
+
+
+build_develop:
+  stage: build
+  tags:
+    - shell
+  script:
+    - docker login -u $CI_REGISTRY_USERNAME -p $CI_REGISTRY_PASSWORD $CI_REGISTRY 
+    - docker build --tag $CI_REGISTRY/$CI_REGISTRY_IMAGE:latest -f .ci/Dockerfile .
+    - docker push $CI_REGISTRY/$CI_REGISTRY_IMAGE:latest
+    - PHP_VERSION=latest
+    - rm -rf .targets
+    - echo $PHP_VERSION >> .targets
+  only:
+    - develop
+    
+build_master:
+  stage: build
+  tags:
+    - shell
+  script:
+    - docker login -u $CI_REGISTRY_USERNAME -p $CI_REGISTRY_PASSWORD $CI_REGISTRY 
+    - docker build --tag $CI_REGISTRY/$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA -f .ci/Dockerfile .
+    - docker push $CI_REGISTRY/$CI_REGISTRY_IMAGE:$CI_COMMIT_SHORT_SHA
+    - PHP_VERSION=$CI_COMMIT_SHORT_SHA
+    - rm -rf .targets
+    - echo $PHP_VERSION >> .targets
+  only:
+    - master
+
+deploy:
+  stage: deploy
+  tags:
+    - shell
+  script:
+    - | 
+      curl -X POST \
+      -F token=$CI_JOB_TOKEN \
+      -F ref=master \
+      -F "variables[SERVICES]=PHP" \
+      -F "variables[PHP_VERSION]=latest" \
+      -F "variables[ENV]=develop" \
+      https://gitlab.linnovate.net/api/v4/projects/1122/trigger/pipeline
+  only:
+    - develop
+

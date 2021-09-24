@@ -1,0 +1,14 @@
+<?php
+
+function bootstrap_rtl_init() {
+    
+    // Check current language
+    global $language ;
+    if($language->direction==1)
+    {
+        //Reference https://github.com/morteza/bootstrap-rtl 
+        drupal_add_css('//cdn.rawgit.com/morteza/bootstrap-rtl/master/dist/cdnjs/3.3.1/css/bootstrap-rtl.min.css', array('type' => 'external', 'media' => 'all', 'preprocess' => FALSE, 'group' => CSS_THEME, 'browsers' => array('IE' => TRUE, '!IE' => TRUE), 'weight' => 9998));
+        drupal_add_css(drupal_get_path('theme', 'chemistry') . '/css/style-rtl.css', array('media' => 'all', 'preprocess' => FALSE, 'group' => CSS_THEME, 'browsers' => array('IE' => TRUE, '!IE' => TRUE), 'weight' => 9999));
+    }
+}
+

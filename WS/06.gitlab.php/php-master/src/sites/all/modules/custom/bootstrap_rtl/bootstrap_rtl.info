@@ -1,0 +1,4 @@
+name = bootstrap_rtl
+description = bootstrap_rtl addons
+core = 7.x
+package = bootstrap_rtl

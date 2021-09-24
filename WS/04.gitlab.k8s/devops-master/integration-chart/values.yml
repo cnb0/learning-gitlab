@@ -1,0 +1,47 @@
+global:
+  env: {{ENV}}
+  namespace: {{NAMESPACE}}
+  SSL_ISSUER: {{SSL_ISSUER}}
+
+  replicas: 
+    min: {{MIN_REPLICAS}}
+    max: {{MAX_REPLICAS}}
+
+  resources: 
+    memory: 
+      requests: {{MEMORY_REQUESTED}}
+      limits: {{MEMORY_LIMITED}}
+    cpu:
+      requests: {{CPU_REQUESTED}}
+      limits: {{CPU_LIMITED}}
+
+  nodeSelector: "{{NODE_POOL_SELECTOR}}"
+
+php:
+  image:
+    registry: {{CI_REGISTRY}}
+    name: {{PHP_IMAGE_NAME}}
+    tag: {{PHP_VERSION}}
+  app:
+    host: {{PHP_HOST}}
+    version: {{APP_VERSION}}
+
+python:
+  image:
+    registry: {{CI_REGISTRY}}
+    name: {{PYTHON_IMAGE_NAME}}
+    tag: {{PYTHON_VERSION}}
+
+  app:
+    host: {{PYTHON_HOST}}
+    version: {{APP_VERSION}}
+
+node:
+  image:
+    registry: {{CI_REGISTRY}}
+    name: {{NODE_IMAGE_NAME}}
+    tag: {{NODE_VERSION}}
+
+  app:
+    host: {{NODE_HOST}}
+    version: {{APP_VERSION}}

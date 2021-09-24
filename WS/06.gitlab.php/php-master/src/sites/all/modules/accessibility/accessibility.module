@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Code for the accessibility feature.
+ */
+
+include_once 'accessibility.features.inc';
+
+function accessibility_init(){
+	drupal_add_css(drupal_get_path('module' , 'accessibility') . '/css/accessibility.css' , array('type' => 'file'));
+	global $language; 
+	if ($language->language == 'he') {
+		drupal_add_css(drupal_get_path('module' , 'accessibility') . '/css/accessibility-rtl.css' , array('type' => 'file'));
+	}
+
+	drupal_add_js(drupal_get_path('module', 'accessibility') . '/js/accessibility.js');
+}
+
+function accessibility_system_info_alter(&$info, $file, $type) {
+  if ($type == 'theme') {
+    $info['regions']['accessibility'] = t('Accessibility');
+  }
+}

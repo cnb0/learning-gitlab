@@ -1,0 +1,10 @@
+name = accessibility
+core = 7.x
+package = Fat fish
+dependencies[] = context
+dependencies[] = ctools
+dependencies[] = high_contrast
+dependencies[] = text_resize
+features[context][] = accessibility
+features[ctools][] = context:context:3
+features[features_api][] = api:2

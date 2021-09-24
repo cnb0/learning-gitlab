@@ -1,0 +1,16 @@
+vault:
+  installed: true
+
+clusterType: gke
+
+cilium:
+  installed: true
+
+ingress:
+  installed: true
+  
+prometheus:
+  installed: true
+  
+falco:
+  installed: true

@@ -1,0 +1,15 @@
+<?php
+
+/**
+ * @file
+ * Code for the fatfish_slider feature.
+ */
+include_once 'fatfish_slider.features.inc';
+
+function fatfish_slider_block_view_alter(&$data, $block) {
+    if ($block->delta == 'homepageslider-block') {
+        drupal_add_js(drupal_get_path('module', 'fatfish_slider') . '/js/jquery.cycle.all.js');
+        drupal_add_js(drupal_get_path('module', 'fatfish_slider') . '/js/homeslider.js');
+        drupal_add_css(drupal_get_path('module', 'fatfish_slider') . '/css/style.css');
+    }
+}

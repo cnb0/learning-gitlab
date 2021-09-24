@@ -1,0 +1,14 @@
+<?php
+
+/**
+ * @file
+ * Code for the Eilot - Installations feature.
+ */
+include_once 'eilot_installations.features.inc';
+
+function eilot_installations_views_pre_build(&$view) {
+    if ($view->name == 'node_openlayer_map' && $view->current_display == 'block_2') {
+        drupal_add_js(drupal_get_path('module', 'eilot_installations') . '/eilot_installations.js');
+    }
+}
+

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the mada_structure feature.
+ */
+
+include_once('mada_structure.features.inc');

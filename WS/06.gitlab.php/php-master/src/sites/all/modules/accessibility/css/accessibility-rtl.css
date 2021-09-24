@@ -1,0 +1,48 @@
+.region-accessibility {
+    right: 0;
+    width: 104px;
+    z-index: 9999;
+    position: absolute;
+    right: 0;
+    color: #fff;
+    background-color: #000;
+    padding: 10px;
+    margin-top: 30px;
+}
+#accessibility_button.open_menu {
+    width: 104px;
+}
+#accessibility_button {
+    font-size: 21px;
+	width: 104px;
+}
+
+#accessibility_button:before {
+    float: right;
+    width: 22px;
+    margin-left: 5px;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
+}
+
+.high_contrast_switcher_high,
+.high_contrast_switcher_normal {
+    padding: 0 !important;
+}
+
+.high_contrast_switcher_high:before {
+    margin-left: 5px;
+}
+
+.high_contrast_switcher_normal:before {
+    float: right;
+    margin-left: 5px;
+}
+
+#block-text-resize-0 {
+    direction: ltr;
+}

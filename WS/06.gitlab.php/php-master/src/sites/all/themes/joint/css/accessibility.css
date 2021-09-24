@@ -1,0 +1,108 @@
+/*accessibility-wrapper*/
+.accessibility-wrapper {
+	position: fixed;
+    top: 0;
+    left: 0px;
+    z-index: 99999999;
+}
+.accessibility-wrapper:focus {
+	border: 1px solid black;	
+}
+#colorAndFontsButtons{
+    background-color: #f5f5f5;	
+    box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+}
+.accessibility-button{
+    width: 88px;
+	margin: 3px 3px;
+}
+div#colorAndFontsButtons input {
+    display: block;
+    margin: 5px;
+	width: 26px;
+    float: left;
+}
+div#colorAndFontsButtons ul{
+    padding: 10px;
+    list-style: none;
+}
+.accessibility-wrapper input:focus, 
+.accessibility-wrapper label:focus, 
+.accessibility-wrapper a:focus{
+	border: 1px solid black;
+}
+.accessibility-wrapper label {
+    font-size: 18px;
+    font-weight: bold;
+    width: auto !important;
+	height: 39px;
+    line-height: 2.2;
+
+}
+	
+/*slider*/
+
+.accessible_slider .accessible_slider_ul > li{
+	float: none !important;
+    margin: 0 !important;
+    opacity: 1 !important;
+}
+.accessible_slider_controls {
+	display:none;
+}
+a.accessible-link {
+	text-decoration: underline;
+}
+#skiplinks a {
+    position: absolute !important;
+    clip: rect(1px 1px 1px 1px);
+    clip: rect(1px, 1px, 1px, 1px);
+    overflow: hidden;
+    height: 1px;
+}
+#skiplinks a{
+    background: black;
+    color: white;
+    display: inline-block;
+    padding: 3px;
+}
+#skiplinks a:focus {
+    overflow: visible !important;
+    clip: auto !important;
+    height: auto !important;
+    top: 24px;
+    z-index: 99999999;
+}
+@media screen and (max-width: 1200px){
+	.accessibility-wrapper {
+	right: 260px;
+    left: auto;
+    top: 10px;
+	}
+}
+
+@media screen and (max-width:768px) {
+	.accessibility-wrapper {
+		position: absolute;
+		top: 14px;
+		right:0;
+		z-index: 99999999;
+		/*width: 100%;*/
+	}
+	.accessibility-wrapper .accessibility-button {
+	        float: right;	
+	}
+	#colorAndFontsButtons{
+		width: 100%;
+		top: 42px;
+		position: relative;	
+	}
+	.accessibility-wrapper {
+    left: auto;
+    right: 70px;
+    top: 10px;
+	}
+	#colorAndFontsButtons li{
+	    clear: both;	
+	}
+}

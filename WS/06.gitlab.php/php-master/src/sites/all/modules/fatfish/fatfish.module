@@ -1,0 +1,225 @@
+<?php
+
+function printContent($node_type, $top_title, $img_url, $default_title, $view_title) {
+
+    $style = 'front_banner';
+    $tid = -1;
+    if ($node_type == 'news') {
+        $tid = 37;
+    }
+    else if ($node_type == 'homepageslider') {
+        $tid = 82;
+    }
+    else if ($node_type == 'page') {
+        $tid = 82;
+        //$style = 'node_banner';
+    }
+    else {
+        $tid = 82;
+        //$style = 'node_banner';
+    }
+
+    if (!isset($img_url)) {
+        if ($tid != -1) {
+            $term = taxonomy_term_load($tid);
+            if (isset($term->field_image['und'][0]['uri'])) {
+                $img_url = $term->field_image['und'][0]['uri'];
+            }
+        }
+    }
+    if (!isset($top_title)) {
+        if (isset($view_title) && $view_title != "") {
+            $title = $view_title;
+        }
+        else {
+            if ($tid != -1) {
+                $term = taxonomy_term_load($tid);
+                if ($tid != 41 && $tid != 62) {
+                    $title = $term->name;
+                }
+            }
+        }
+    }
+    else {
+        $title = $top_title;
+    }
+
+    if (isset($img_url)) {
+        $img_url = image_style_url($style, $img_url);
+        echo "<img src='$img_url' >";
+    }
+}
+
+function fatfish_topImage($node, $is_node, $title) {
+
+    $node_type = null;
+    $img_url = null;
+    $top_title = null;
+    $default_title = null;
+    $view_title = null;
+
+    if ($is_node) {//this is node
+        $node_type = $node->type;
+        if (isset($node->field_top_image['und'][0]['uri'])) {
+            $img_url = $node->field_top_image['und'][0]['uri'];
+        }
+        elseif ($node_type == "homepageslider" && isset($node->field_homepagesliderimage['und'][0]['uri'])) {
+            $img_url = $node->field_homepagesliderimage['und'][0]['uri'];
+        }
+
+
+        if (isset($node->field_top_image_title['und'][0]['value'])) {
+            $top_title = $node->field_top_image_title['und'][0]['value'];
+        }
+        else {
+            $default_title = $node->title;
+        }
+    }
+    if (!$is_node) {//this is view
+        $node_type = '';
+        if (isset($node['#views_contextual_links_info']['views_ui']['view_name'])) {
+            $node_type = $node['#views_contextual_links_info']['views_ui']['view_name'];
+
+            if (isset($title)) {
+                $view_title = $title;
+            }
+        }
+    }
+
+    printContent($node_type, $top_title, $img_url, $default_title, $view_title);
+}
+
+function fatfish_preprocess_views_view(&$vars) {
+    
+}
+
+function fatfish_get_team_ref($nid) {
+    if ($node = node_load($nid)) {
+        $query = new EntityFieldQuery();
+
+        $query->entityCondition('entity_type', 'node')
+            ->entityCondition('bundle', 'research_team')
+            ->fieldCondition('field_laboratory_ref', 'target_id', '88', '=')
+            ->addMetaData('account', user_load(1)); // Run the query as user 1.
+
+        $result = $query->execute();
+
+        if (isset($result['node'])) {
+            $news_items_nids = array_keys($result['node']);
+            $news_items = entity_load('node', $news_items_nids);
+            $research_team_nid = key($news_items);
+            //dpm($key);
+            return $research_team_nid;
+        }
+    }
+}
+
+function fatfish_fish_print_flexslider($story_nodes) {
+
+    echo '<div id="areaCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">';
+
+    $index = 0;
+    foreach ($story_nodes as $key => $s_node) {
+        if ($index == 0)
+            echo '<li data-target="#areaCarousel" data-slide-to="0" class="active"></li>';
+        else
+            echo '<li data-target="#areaCarousel" data-slide-to="' . $index . '"></li>';
+        $index++;
+    }
+
+    echo '</ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">';
+
+    $index = 0;
+    foreach ($story_nodes as $key => $s_node) {
+        $img_url = image_style_url('front_banner', $s_node->field_homepagesliderimage['und'][0]['uri']);
+
+        if ($index == 0) {
+            echo '<div class="item active">';
+            echo "<img src='$img_url' >";
+            echo '<div class="item-title"><a href="/node/' . $key . '">' . strip_tags($s_node->body['und'][0]['value'], "<strong>") . '</a></div>';
+            echo '</div>';
+        }
+        else {
+            echo '<div class="item">';
+            echo "<img src='$img_url' >";
+            echo '<div class="item-title"><a href="/node/' . $key . '">' . strip_tags($s_node->body['und'][0]['value'], "<strong>") . '</a></div>';
+            echo '</div>';
+        }
+        $index++;
+    }
+
+    echo '</div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#areaCarousel" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#areaCarousel" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>';
+}
+
+function fatfish_form_alter(&$form, $form_state, $form_id) {
+
+    global $language;
+
+    //create filter of node titles, in the general map page.
+    if ($form['#id'] == 'views-exposed-form-maps-openlayers-page-1' || $form['#id'] == 'fatfish-area-map-form') {
+
+        $form['nid']['#type'] = "select";
+
+        $query = db_select('node')
+            ->fields('node', array('nid', 'title'))
+            ->condition('type', 'program', '=')
+            ->condition('language', $language->language, '=')
+            ->orderBy('title', 'DESC');
+        $result = $query->execute();
+
+        $form['nid']['#options']['All'] = t("All Programs");
+
+        foreach ($result as $row) {
+            $form['nid']['#options'][$row->nid] = $row->title;
+        }
+
+        $form['nid']['#size'] = 1;
+        $form['nid']['#default_value'] = "All";
+    }
+}
+
+// Create filter of programs for area page, called from node--area.tpl.php
+function fatfish_area_map_form($form, &$form_state) {
+    $nid = check_plain($_GET['nid']);
+    $selected = (isset($nid)) ? $nid : "All";
+
+    $form['program'] = array(
+      '#type' => 'submit',
+      '#value' => t('Submit'),
+      '#default_value' => 'All'
+    );
+    $form["program"][0]['value']['#default_value'] = $selected;
+    return $form;
+}
+
+function fatfish_area_map_form_submit($form, &$form_state) {
+    $args = func_get_args();
+    $path = check_plain($_GET['q']);
+    drupal_goto($path, array('query' => array('nid' => $form_state['values']['nid'])));
+}
+
+function fatfish_init() {
+    global $language;
+    if ($language->language == 'he') {
+        drupal_add_css("/" . drupal_get_path("theme", "jointDisability") . "/css/style-rtl.css", array('media' => 'all', 'preprocess' => FALSE, 'group' => CSS_THEME, 'browsers' => array('IE' => TRUE, '!IE' => TRUE), 'weight' => 9999));
+    }
+}
+
+function fatfish_menu_alter(&$items) {
+   $items['media_colorbox/%file/%/%']['access callback'] = true;
+}

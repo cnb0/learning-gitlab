@@ -1,0 +1,60 @@
+<?php
+
+/**
+ * @file
+ * Creates a small block with jQuery links that resize text within the BODY tag.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function ___fatfish_accessibility_menu() {
+    $items = array();
+    /*
+      $items['admin/config/user-interface/text_resize'] = array(
+      'title' => 'Text Resize',
+      'description' => 'Settings for your Text Resize block.',
+      'access arguments' => array('administer site configuration'),
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('_text_resize_admin_settings'),
+      'type' => MENU_NORMAL_ITEM
+      ); */
+    return $items;
+}
+
+/**
+ * Implements hook_block_info().
+ */
+function fatfish_accessibility_block_info() {
+    // Makes it show up on /admin/build/block page.
+    $blocks[0]['info'] = t('Contrast');
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function fatfish_accessibility_block_view() {
+    // Show the block.
+    $block['subject'] = t('Contrast');
+    $block['content'] = theme('fatfish_accessibility_block_contrast');
+    return $block;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fatfish_accessibility_theme() {
+    return array(
+        'fatfish_accessibility_block_contrast' => array(),
+    );
+}
+
+// Create a theme function that can be overridden by other theme developers.
+function theme_fatfish_accessibility_block_contrast() {
+    drupal_add_css(drupal_get_path('module', 'fatfish_accessibility') . '/fatfish_accessibility.css');
+    drupal_add_library('system', 'jquery.cookie');
+    drupal_add_js(drupal_get_path('module', 'fatfish_accessibility') . '/fatfish_accessibility.js', 'file');
+    $output = t('<a href="javascript:;" class="contrast-changer" id="contrast-changer" title = "'.t('Change page contrast').'">' . t('Contrast') . '</a>');
+    return $output;
+}

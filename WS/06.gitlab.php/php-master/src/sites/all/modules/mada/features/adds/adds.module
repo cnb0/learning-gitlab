@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the adds feature.
+ */
+
+include_once 'adds.features.inc';

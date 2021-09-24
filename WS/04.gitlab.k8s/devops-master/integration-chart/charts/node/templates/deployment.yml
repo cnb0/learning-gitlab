@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "node-deployment"
+  namespace: {{ .Values.global.namespace }}
+spec:
+  replicas: {{ .Values.global.replicas.min }}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate 
+  selector:
+    matchLabels:
+      app: "node-deployment"
+  template:
+    metadata:
+      labels:
+        app: "node-deployment"
+        version: "{{ .Values.app.version }}"
+    spec:
+      tolerations:            # make sure that pods will tolearate with every node 
+        - operator: "Exists"  # even when spot instances exist
+      nodeSelector:
+        {{ .Values.nodeSelector }}
+      containers:
+      - name: "node-deployment"
+        image: "{{ .Values.image.registry }}/{{ .Values.image.name }}:{{ .Values.image.tag }}"
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        # - containerPort: 443
+        # volumeMounts:
+        # - name: "node-volume"
+        #   mountPath: /var/www/html/sites/default/files
+        # resources:
+        #   requests:
+            # memory: "{{ .Values.global.resources.memory.requests }}"
+            # cpu: "{{ .Values.global.resources.cpu.requests }}"
+          # limits:
+          #   memory: "{{ .Values.global.resources.memory.limits }}"
+          #   cpu: "{{ .Values.global.resources.cpu.limits }}"
+        env:
+          - name: SITE_URL
+            value: "http://{{ .Values.app.host }}"
+      imagePullSecrets:
+      - name: "azure.regcreds"
+      # volumes:
+      # - name: "node-volume"
+      #   persistentVolumeClaim:
+      #     claimName: "node-storage"

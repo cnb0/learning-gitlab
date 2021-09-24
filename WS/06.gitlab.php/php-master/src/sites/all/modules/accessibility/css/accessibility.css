@@ -1,0 +1,145 @@
+#accessibility_button {
+    z-index: 9999;
+    position: absolute;
+    color: #fff;
+    background-color: #000;
+    padding: 5px;
+    border-radius: 10px;
+    -webkit-transition: width 0.22s, border-radius  0.1s;
+    transition: width 0.22s, border-radius  0.1s;
+    cursor: pointer;
+    border: 2px solid rgb(153, 153, 153);
+    z-index: 9999;
+    font-size: 17px;
+	width: 130px;
+}
+
+#accessibility_button.open_menu {
+    border-radius: 0;
+    width: 130px;
+    border: 1px solid white;
+    border-bottom: none;
+    -webkit-transition: width 0.22s, border-radius  0.1s;
+    transition: width 0.22s, border-radius  0.1s;
+}
+
+#accessibility_button:before {
+    content: '';
+    display: inline-block;
+    background: url(../images/disability-03.png) no-repeat 0 0 !important;
+    width: 30px;
+    height: 22px;
+    float: left;
+}
+
+.region-accessibility {
+    z-index: 9999;
+    position: absolute;
+    left: 0;
+    color: #fff;
+    background-color: #000;
+    padding: 0px 10px 10px 10px;
+    margin-top: 30px;
+    width: 130px;
+    border: 1px solid white;
+    border-top: none;
+}
+
+.region-accessibility a {
+    color: #fff !important;
+}
+
+#block-high-contrast-high-contrast-switcher {
+    border-bottom: 1px solid;
+    margin-bottom: 10px;
+}
+
+.high_contrast_switcher * {
+    display: block;
+    margin: 0;
+}
+
+.high_contrast_switcher_label {
+    display: none;
+}
+
+.high_contrast_switcher_high:before {
+    content: '';
+    display: inline-block;
+    background: url(../images/disability-04.png) no-repeat 0 0 !important;
+    width: 24px;
+    height: 25px;
+	margin-right: 3px;
+}
+
+.high_contrast_switcher_high a {
+    display: inline-block;
+    position: relative;
+    top: -8px;
+    right: -4px;
+}
+
+.high_contrast_switcher_normal:before {
+    content: '';
+    display: inline-block;
+    background: url(../images/disability-05.png) no-repeat 0 0 !important;
+    width: 24px;
+    height: 25px;
+    float: left;
+	margin-right: 3px;
+}
+
+.high_contrast_switcher_high,
+.high_contrast_switcher_normal {
+    display: block;
+}
+.high_contrast_switcher_high,
+.high_contrast_switcher_normal {
+    font-size: 14px;
+}
+.high_contrast_switcher_normal {
+    margin-bottom: 10px;
+}
+
+.high_contrast_switcher_separator {
+    display: none;
+}
+
+/*#block-text-resize-0 {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg); 
+    direction: rtl;
+}*/
+
+/*#block-text-resize-0 * {
+    -webkit-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+}*/
+
+a#text_resize_increase {
+    text-indent: -9999px;
+    color: transparent;
+    font-size: 0;
+    background: url('../images/disability-06.png') no-repeat 0 0 !important;
+}
+
+a#text_resize_reset {
+    text-indent: -9999px;
+    color: transparent;
+    font-size: 0;
+    background: url('../images/disability-07.png') no-repeat 0 0 !important;
+}
+
+a#text_resize_decrease {
+    text-indent: -9999px;
+    color: transparent;
+    font-size: 0;
+    background: url('../images/disability-08.png') no-repeat 0 0 !important;
+}
+
+.block-text-resize h2 {
+    position: absolute;
+    visibility: hidden;
+}

@@ -1,0 +1,103 @@
+<?php
+
+
+
+function graph_node_view($node, $view_mode, $langcode) {
+    if($node->type=="statistic"){dpm($node);
+        $field_collection = entity_load('field_collection_item', array($node->field_graph_1['und'][0]['value']));
+        dpm ($field_collection);
+        $field_1_1 = $field_collection[11]->field_graph_1_1['und'][0]['value'];
+        $field_1_2 = $field_collection[11]->field_graph_1_2['und'][0]['value'];
+        $field_1_3 = $field_collection[11]->field_graph_1_3['und'][0]['value'];
+        $field_1_4 = $field_collection[11]->field_graph_1_4['und'][0]['value'];
+        $field_1_5 = $field_collection[11]->field_graph_1_5['und'][0]['value'];
+
+      ?>
+
+      <script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1.1','packages':['bar']}]}"></script>
+    
+       <script type="text/javascript">
+          google.load("visualization", "1", {packages:["corechart"]});
+          google.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ["Category", "  ", { role: "style" },"p" ],
+              ["התערבות קצרת מועד", <?php print($field_1_1) ?>, "#88B3DF","<?php print($field_1_1) ?>"],
+              ["הפסיק השתתפותו", <?php print($field_1_2) ?>, "#008EC8","<?php print($field_1_2) ?>"],
+              ["סיים את התכנית", <?php print($field_1_3) ?>, "#18478D","<?php print($field_1_3) ?>"],
+              ["משתתף פעיל",<?php print($field_1_4) ?>, "#733461","<?php print($field_1_4) ?>"],
+              ["עומד להתחיל השתתפותו", <?php print($field_1_5) ?>, "#B9364A","<?php print($field_1_5) ?>"],
+             ]
+              );
+
+            var view = new google.visualization.DataView(data);
+            view.setColumns([ 0, 
+                              1,
+                              {calc: "stringify",sourceColumn: 3,type: "string",role: "annotation" },
+                              2]);
+
+        var options = {
+          bars: 'vertical',
+          height: 700,
+          bar: { groupWidth: "40%"},
+          min: 1,
+          title: "סך המשתתפים בתכניות תבת:",
+          //vAxis: {format: "percent"},
+          hAxis: {slantedText:false, slantedTextAngle:270},
+          animation:{
+          duration: 1000,
+          easing: 'out'
+
+      },
+
+        };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
+
+            chart.draw(view, options);
+        }
+        </script>
+
+        <style>
+
+
+          rect[fill="#3366cc"]{
+            display: none;
+          }
+        </style>
+
+        <?php
+  }
+  
+}
+
+
+
+
+/**
+* Implements hook_block_info().
+*/
+function graph_block_info() {
+  $blocks = array();
+  $blocks['graph_ABC'] = array(
+    'info' => t('area graph'),
+  );
+  return $blocks;
+}
+/**
+* Implements hook_block_view().
+*/
+function graph_block_view($delta = '') {
+  $block = array();
+  switch ($delta) {
+    case 'graph_ABC':
+      $block['subject'] = '';
+      $block['content'] = _graph_BLOCK_ABC_CONTENT();
+      break;
+  }
+  return $block;
+}
+function _graph_BLOCK_ABC_CONTENT() {
+  $output =   '<div id="columnchart_values" style="width: 1200px; height: auto;"></div>  ';
+  return $output;
+}

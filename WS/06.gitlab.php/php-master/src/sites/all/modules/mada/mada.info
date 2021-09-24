@@ -1,0 +1,9 @@
+name = Mada 
+description = "This project custom module."
+package = Custom
+core = 7.x
+
+
+
+
+

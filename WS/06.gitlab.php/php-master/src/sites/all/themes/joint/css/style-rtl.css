@@ -1,0 +1,130 @@
+@import "bootstrap-rtl.min.css";
+@import "accessibility-rtl.css";
+
+.navbar-default .navbar-nav>li:first-child>a{
+    padding-right: 0;
+    padding-left:10px;
+}
+.navbar-default .navbar-nav>li:first-child{
+    margin-right:0;
+}
+/*footer*/
+
+footer .btn-default{
+    float:left;
+}
+footer .form-submit, 
+footer .form-submit:hover{
+    float: left;
+}
+body #admin-menu {
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    z-index: 99999999999999;
+}
+.dropdown-menu {
+    /* right: 9px;*/
+}
+#block-block-33 img{
+    float: left;
+    margin-top: 0;
+}
+.node-type-area #fatfish-area-map-form {
+    margin: 200px 0 0 75px;
+}
+/*#views-exposed-form-tevet-search-page*/
+.secondary_nav {
+    float: left;
+}
+.language-icon {
+    margin-left:0;
+}
+
+#fatfish-area-map-form #edit-program{
+    float: left;
+}
+#views-exposed-form-tevet-search-page button.form-submit{
+    right:auto;
+    left: 26px;
+}
+#views-exposed-form-tevet-search-page .form-type-select{
+    left: 68px;
+    /*  width: 180px;*/
+    right:auto;
+    width:inherit;
+}
+#views-exposed-form-tevet-search-page .form-type-select, 
+#fatfish-area-map-form .form-type-select,
+#views-exposed-form-maps-openlayers-page-1 .form-type-select{
+    background:rgb(237, 237, 238) url('../images/select.png') no-repeat 7px;
+
+}
+.navbar #block-search-form{
+    float: left;
+    margin: 6px 0 0;
+}
+.region-header-top{
+    float:left;
+}
+.navbar-header-logo{
+    float: right;
+}
+.program-print-link{
+    background:url('../images/print.png') left no-repeat;
+    padding-left: 30px;
+    padding-right:0;
+}
+.credit_link{
+    float: right;	
+}
+#block-search-form .btn-default, 
+.page-search .page-content .btn-default/*,
+#block-views-exp-tevet-search-page button.form-submit*/{
+    /*right: -27px;*/
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    right: auto;
+}
+#views-exposed-form-knowledge-and-training-page #edit-combine-wrapper .form-control{
+    background-position: 1%;
+}
+#views-exposed-form-tevet-search-page .form-type-select .form-control{
+    padding-left: 20px;
+}
+.openlayers-tooltip-name, .openlayers-tooltip-description{
+    direction: rtl;
+    text-align:right;
+}
+/* Main Menu - level 3 */
+.menu-top ul.nav li.dropdown > ul.dropdown-menu .dropdown:hover ul.dropdown-menu {
+    right: 100%;
+    left: auto;
+}
+.well .nav>li.active ul.dropdown-menu li:before, .well .nav>li.active-trail ul.dropdown-menu li:before{
+    right: 3px;
+}
+.menu-top ul.nav li.dropdown > ul.dropdown-menu ul.dropdown-menu{
+    transition: right 0.5s ease-in;
+}
+.node-type-people .field-name-field-image {
+    float: right;
+    margin: 7px 0 0 14px;
+}
+@media screen and (max-width:1024px) {
+    #views-exposed-form-maps-openlayers-page-1 #edit-submit-maps-openlayers {
+        left: 14px;
+    }
+}
+@media screen and (max-width:768px) {
+    .navbar-default .navbar-nav>li:first-child{
+        margin: 0;
+    }
+    .navbar-default .navbar-nav>li:first-child>a{
+        padding: 10px 15px;
+    }
+    .navbar #block-search-form{
+        float:none;
+    }
+}

@@ -1,0 +1,9 @@
+name = fatfish
+description = Fatfish.
+package = Fatfish
+core = 7.x
+
+version = "7.x-3.5"
+core = "7.x"
+project = "Fatfish"
+

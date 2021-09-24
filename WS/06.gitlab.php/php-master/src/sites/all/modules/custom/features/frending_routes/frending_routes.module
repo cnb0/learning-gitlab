@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Frending routes feature.
+ */
+
+include_once 'frending_routes.features.inc';

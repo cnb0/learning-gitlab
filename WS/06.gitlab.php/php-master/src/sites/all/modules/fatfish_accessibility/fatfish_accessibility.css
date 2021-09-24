@@ -1,0 +1,70 @@
+/* $Id $ */
+
+a#contrast-changer {
+    background: url(a_contrast.gif) no-repeat 0 0;
+    display: block;
+    float: right;
+    width: 28px;
+    height: 27px;
+    margin: 3px 0 0 0;
+    outline: none;
+    text-indent: -9000px;
+    cursor: pointer;
+    overflow: hidden;
+    z-index:9000;
+    position: relative;
+}
+
+.high-contrast * {
+    color: #000;
+}
+.high-contrast *{
+    background: #fff;
+}
+
+.high-contrast.section-contact-us form.webform-client-form input,
+.high-contrast.node-type-landing form.webform-client-form input {
+    color: #000;
+    background: #eee;
+    border: 1px solid #000;
+}
+.high-contrast.node-type-landing .webform-client-form label {
+    display: block;
+}
+
+.node-type-landing #top .block{
+    float: left;
+    margin: 0;
+
+}
+.node-type-landing .top{
+    width: 100%;
+    position: fixed;
+    border: 2px solid black;
+    margin-left: 20px;
+    background: #fff;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 0 10px;
+    width: 92px;
+    z-index:9999;
+}
+
+.block-fatfish-accessibility .block-title,
+.block-text-resize .block-title {
+    display: none;
+}
+
+.node-type-landing #top .block.block-fatfish-accessibility {
+    margin: 3px 0 3px 10px;
+}
+
+.node-type-landing #page {
+    min-width: 960px;
+    max-width: 1032px;
+    margin: 0 auto;
+    position: relative;
+}/*
+.high-contrast #landig_image img {
+    visibility: hidden;
+}*/

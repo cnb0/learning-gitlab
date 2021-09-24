@@ -1,0 +1,57 @@
+@import "../../joint/css/style-rtl.css";
+
+.node-type-article .field-name-field-image img {
+    float: right;
+    margin: 7px 0 4px 7px;
+}
+#block-search-form .btn-default, 
+.page-search .page-content .btn-default, 
+#block-views-exp-tevet-search-page button.form-submit,
+#block-search-form .btn-primary,
+.page-search .page-content .btn-primary {
+    left: 29px;
+    right: auto;
+    width: 17px;
+    height: 17px;
+    background-size: 17px;
+}
+/*----------------------------Frending .view-routes----------------------------*/
+.view-routes .view-header:after {
+    left: 0;
+    right: auto;
+}
+.view-routes .tabs_routes {
+    margin-left: auto;
+    margin-right: 20px;
+    padding: 10px 15px 10px 80px;
+    background: url(../images/arrow_down_frending.png) left no-repeat #f6f6f6;
+    background-size: 14px 7px;
+    background-position: 10px;
+}
+.view-routes .tabs_routes.open {
+    background: url(../images/arrow_up_frending.png) left no-repeat #1e75ae;
+    background-size: 14px 7px;
+    background-position: 10px;
+}
+.view-routes .slick-prev.slick-arrow {
+    background: url(../images/slide-l.png) no-repeat transparent;
+    background-size: 42px 68px;
+}
+.view-routes .slick-next.slick-arrow {
+    background: url(../images/slide-r.png) no-repeat transparent;
+    background-size: 42px 68px;
+}
+.view-routes .slick-track img {
+    float: right !important;
+}
+
+[dir="rtl"] .slick-next {
+    right: 0;
+}
+[dir="rtl"] .slick-prev {
+    left: 0;
+}
+.slick-prev {
+    left: 0;
+}
+/*----------------------------End Frending .view-routes----------------------------*/

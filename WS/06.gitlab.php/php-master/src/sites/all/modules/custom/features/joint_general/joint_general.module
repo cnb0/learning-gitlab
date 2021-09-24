@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the joint general feature.
+ */
+
+include_once 'joint_general.features.inc';

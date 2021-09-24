@@ -1,0 +1,173 @@
+<?php
+
+/**
+ * Implements hook_field_formatter_info().
+ */
+function mada_field_formatter_info() {
+    $formatters = array();
+    $formatters['taxonomy_tree'] = array(
+        'label' => t('Term tree'),
+        'field types' => array('taxonomy_term_reference')
+    );
+
+    return $formatters;
+}
+
+/**
+ * Implementation of hook_block_info().
+ */
+function mada_block_info() {
+    $blocks['mada-lang-switcher'] = array(
+        'info' => t('Language switcher (Mada)'),
+    );
+    $blocks['mada-enter'] = array(
+        'info' => t('Login link (Mada)'),
+    );
+
+
+    return $blocks;
+}
+
+function mada_node_view($node, $view_mode, $langcode) {
+    if ($node->type == 'jurnal' && $view_mode == 'full') {
+        drupal_add_js(drupal_get_path('module', 'mada') . '/pdfobject.js');
+        $pdf = field_get_items('node', $node, 'field_jurnal_pdf');
+        $pdfpath = file_create_url($pdf[0]['uri']);
+        drupal_add_js('
+            jQuery(document).ready(function () { 
+                function embedPDF(){
+                    var myPDF = new PDFObject({ 
+                    width: "100%",
+                    height: "800px",
+                        url: "' . $pdfpath . '",
+                        pdfOpenParams: { 
+                            navpanes: 1,
+                             statusbar: 0,
+                             view: "FitV",
+                             pagemode: "0"
+                         }
+                  }).embed("pdfcontainer"); 
+                }
+                window.onload = embedPDF; //Feel free to replace window.onload if needed.
+            });', 'inline');
+
+        $share[] = l(t('PDF'), $pdfpath, array('attributes' => array('target' => '_blank')));
+        $share[] = l(t('Send to a friend'), 'printmail/' . $node->nid);
+
+        $node->content['my_additional_field'] = array(
+            '#markup' => '<div class = "mada_share">' . implode (' | ', $share) . '</div><div id ="pdfcontainer"></div>',
+            '#weight' => 1,
+        );
+    }
+}
+
+/**
+ * Implementation of hook_block_view().
+ */
+function mada_block_view($delta='') {
+
+    $block = array();
+    switch ($delta) {
+        case 'mada-lang-switcher':
+            $block['subject'] = t('Language');
+
+            global $language;
+            $lang_default = language_default();
+            $langs = language_list();
+            $content = '<ul class="lang-switcher">';
+            foreach ($langs as $lang) {
+                $class = $lang->language;
+                if ($lang->language == $language->language)
+                    continue; //skip
+                $path = $lang->language == $lang_default->language ? base_path() : base_path() . $lang->language;
+
+                $content.='<li class="' . $class . '"><a href="' . $path . '">' . $lang->name . '</a></li>';
+            }
+            $content.='</ul>';
+            $block['content'] = $content;
+
+            break;
+        case 'mada-enter':
+
+            $block['subject'] = t('Enter');
+            $block['content'] = '<a href="' . base_path() . '">' . t('Enter Knowledge Base') . '</a>';
+            break;
+    }
+    return $block;
+}
+
+/**
+ * Implements hook_field_formatter_view(). This code just passes straight
+ * through to a theme function, MYMODULE_formatter_FORMATTER
+ * (e.g. MYMODULE_formatter_MYMODULE_absolute_url).
+ */
+function mada_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
+    $element = array();
+    $settings = $display['settings'];
+    switch ($display['type']) {
+
+        case 'taxonomy_tree':
+            foreach ($items as $delta => $item) {
+
+                $term = taxonomy_term_load($item['tid']); //print_r($term);
+                $parents = taxonomy_get_parents($item['tid']); //print_r($parents);
+                if (!empty($parents)) {
+
+                    foreach ($parents as $par) {
+                        $markup = '<span class="parent-term"><b>-' . t('Area') . '</b>' . $par->name . '</span>';
+                        break;
+                    }
+                    $markup.= '<span class="sub-term"><b>' . t('Sub-Area') . '-</b>' . $term->name . '</span>';
+                    $element[$delta] = array(
+                        '#markup' => $markup
+                    );
+                } else {
+                    $element[$delta] = array(
+                        '#markup' => '<span class="sub-term"><b>' . t('Sub-Area') . '-</b>' . $term->name . '</span>'
+                    );
+                }
+            }
+
+            break;
+    }return $element;
+}
+
+function mada_menu() {
+    $items['database'] = array(
+        'page callback' => 'mada_knowledgebase_page',
+        'title' => t('Data Monitoring'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['jurnal'] = array(
+        'page callback' => 'mada_jurnal_page',
+        'access callback' => TRUE,
+    );
+    return $items;
+}
+
+function mada_jurnal_page() {
+    global $language;
+    $query = db_select('node', 'n');
+    $query->join('field_data_field_date', 'd', 'n.nid = d.entity_id');
+    $result = $query
+            ->fields('n', array('nid'))
+            ->condition('n.type', 'jurnal')
+            ->condition('n.language', $language->language)
+            ->condition('n.status', 1)
+            ->orderBy('d.field_date_value', 'DESC')
+            ->extend('PagerDefault')     //Pager Extender
+            ->limit(1)
+            ->execute();
+    // devide complimentry into types
+    foreach ($result as $item) {
+        drupal_goto('node/' . $item->nid);
+    }
+    return 'page not found';
+}
+
+function mada_knowledgebase_page() {
+    global $user;
+    global $language;
+    return '';
+}

@@ -1,0 +1,22 @@
+div#colorAndFontsButtons input {
+    float: right;
+}
+.accessibility-wrapper{
+      right: 0;
+    left: auto;
+}
+@media screen and (max-width:1200px) {
+	.accessibility-wrapper {
+		right: auto;
+		left: 260px;
+		top: 10px;
+	}
+}
+@media screen and (max-width:768px) {
+	.accessibility-wrapper{
+	left: 71px;
+    right: auto;
+    top: 10px;
+	}
+	
+}
