@@ -28,9 +28,9 @@
 
 2) upload "basic-auth" for dev and stage. Example for "stage" below:
 
-      #stage
-      kubectl get secret basic-auth -o yaml -n tikkuninaction-stage | grep -v namesp| kubectl apply -f - -n naren-stage
-      #prod skip this step
+            #stage
+            kubectl get secret basic-auth -o yaml -n tikkuninaction-stage | grep -v namesp| kubectl apply -f - -n naren-stage
+            #prod skip this step
 
 
 3) add auth for Azure container registry. Example below:
