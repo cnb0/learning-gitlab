@@ -26,27 +26,30 @@ kubectl create ns naren-prod
 
 
 2) upload "basic-auth" for dev and stage. Example for "stage" below:
-#stage
-kubectl get secret basic-auth -o yaml -n tikkuninaction-stage | grep -v namesp| kubectl apply -f - -n naren-stage
-#prod skip this step
+
+      #stage
+      kubectl get secret basic-auth -o yaml -n tikkuninaction-stage | grep -v namesp| kubectl apply -f - -n naren-stage
+      #prod skip this step
 
 
 3) add auth for Azure container registry. Example below:
-#stage
-kubectl get secrets azure.regcreds -o yaml  | grep -v namespace | kubectl apply -f - -n naren-stage
-#prod
-kubectl get secrets azure.regcreds -o yaml  | grep -v namespace | kubectl apply -f - -n naren-prod
+
+        #stage
+        kubectl get secrets azure.regcreds -o yaml  | grep -v namespace | kubectl apply -f - -n naren-stage
+        #prod
+        kubectl get secrets azure.regcreds -o yaml  | grep -v namespace | kubectl apply -f - -n naren-prod
 
 
 4) for php - apply PVC and Secret
-#dev
-kubectl apply -f integration-chart/charts/php/static/pvc.yml -n naren-dev
-kubectl apply -f integration-chart/charts/php/static/secret.yml -n naren-dev
-#stage
-kubectl apply -f integration-chart/charts/php/static/pvc.yml -n naren-stage
-kubectl apply -f integration-chart/charts/php/static/secret.yml -n naren-stage
-#prod
-kubectl apply -f integration-chart/charts/php/static/pvc.yml -n naren-prod
-kubectl apply -f integration-chart/charts/php/static/secret.yml -n naren-prod
+
+        #dev
+        kubectl apply -f integration-chart/charts/php/static/pvc.yml -n naren-dev
+        kubectl apply -f integration-chart/charts/php/static/secret.yml -n naren-dev
+        #stage
+        kubectl apply -f integration-chart/charts/php/static/pvc.yml -n naren-stage
+        kubectl apply -f integration-chart/charts/php/static/secret.yml -n naren-stage
+        #prod
+        kubectl apply -f integration-chart/charts/php/static/pvc.yml -n naren-prod
+        kubectl apply -f integration-chart/charts/php/static/secret.yml -n naren-prod
 
 
