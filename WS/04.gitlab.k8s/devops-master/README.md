@@ -16,13 +16,14 @@
 
 
 # steps on k8s
-1) create namespace. Example below:
-#dev
-kubectl create ns naren-dev
-#stage
-kubectl create ns naren-stage
-#prod
-kubectl create ns naren-prod
+
+            1) create namespace. Example below:
+            #dev
+            kubectl create ns naren-dev
+            #stage
+            kubectl create ns naren-stage
+            #prod
+            kubectl create ns naren-prod
 
 
 2) upload "basic-auth" for dev and stage. Example for "stage" below:
